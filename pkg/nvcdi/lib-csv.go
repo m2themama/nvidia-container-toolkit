@@ -457,15 +457,11 @@ func (l *csvlib) getEnableCUDACompatHookOptions() (*discover.EnableCUDACompatHoo
 		_ = l.nvmllib.Shutdown()
 	}()
 
-	if !l.hasOrinDevices() {
-		hostDriverVersion, ret := l.nvmllib.SystemGetDriverVersion()
-		if ret != nvml.SUCCESS {
-			return nil, fmt.Errorf("failed to get driver version: %v", ret)
-		}
-		f := &discover.EnableCUDACompatHookOptions{
-			HostDriverVersion: hostDriverVersion,
-		}
-		return f, nil
+	var cudaCompatContainerRoot string
+	if l.hasOrinDevices() {
+		// For Orin devices we need to use a different container compat root.
+		// We allow this to be overridden by the user.
+		cudaCompatContainerRoot = l.csv.CompatContainerRoot
 	}
 
 	hostCUDAVersion, err := l.getCUDAVersionString()
@@ -475,7 +471,7 @@ func (l *csvlib) getEnableCUDACompatHookOptions() (*discover.EnableCUDACompatHoo
 
 	f := &discover.EnableCUDACompatHookOptions{
 		HostCUDAVersion:         hostCUDAVersion,
-		CUDACompatContainerRoot: l.csv.CompatContainerRoot,
+		CUDACompatContainerRoot: cudaCompatContainerRoot,
 	}
 	return f, nil
 }
