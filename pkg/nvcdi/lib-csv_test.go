@@ -207,7 +207,7 @@ func TestDeviceSpecGenerators(t *testing.T) {
 						{
 							HookName: "createContainer",
 							Path:     "/usr/bin/nvidia-cdi-hook",
-							Args:     []string{"nvidia-cdi-hook", "enable-cuda-compat", "--host-driver-version=540.3.0"},
+							Args:     []string{"nvidia-cdi-hook", "enable-cuda-compat", "--host-cuda-version=13.1"},
 							Env:      []string{"NVIDIA_CTK_DEBUG=false"},
 						},
 						{
@@ -359,6 +359,9 @@ func mockIGXServer() nvml.Interface {
 		},
 		SystemGetDriverVersionFunc: func() (string, nvml.Return) {
 			return "540.3.0", nvml.SUCCESS
+		},
+		SystemGetCudaDriverVersionFunc: func() (int, nvml.Return) {
+			return 13010, nvml.SUCCESS
 		},
 		DeviceGetCountFunc: func() (int, nvml.Return) {
 			return 2, nvml.SUCCESS
