@@ -1,6 +1,14 @@
 # NVIDIA Container Toolkit Changelog
 
-## What's Changed
+## v1.19.0-rc.5
+
+- Remove dlopen locator added in v1.19.0-rc.4
+
+### Changes in the Toolkit Container
+
+- build(deps): Bump nvidia/distroless/go to v4.0.2-dev in /deployments/container
+
+## v1.19.0-rc.4
 
 - Add a Dlopen-based library locator
 - Add support for injecting additional GIDs
