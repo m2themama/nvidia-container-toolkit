@@ -1,5 +1,9 @@
 # NVIDIA Container Toolkit Changelog
 
+## v1.19.0-rc.6
+
+- Use host CUDA version for all CSV compat checks
+
 ## v1.19.0-rc.5
 
 - Remove dlopen locator added in v1.19.0-rc.4
